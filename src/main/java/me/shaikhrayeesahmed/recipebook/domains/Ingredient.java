@@ -13,6 +13,7 @@ public class Ingredient extends BaseEntity {
 
     private String name;
     private String description;
+    private Integer amount;
 
     @OneToOne
     private UnitOfMeasure unitOfMeasure;
@@ -38,6 +39,14 @@ public class Ingredient extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public UnitOfMeasure getUnitOfMeasure() {

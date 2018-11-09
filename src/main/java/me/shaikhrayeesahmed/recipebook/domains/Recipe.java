@@ -14,10 +14,10 @@ public class Recipe extends BaseEntity {
     private String title;
     private String descrition;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients = new HashSet<>();
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private Set<Note> notes = new HashSet<>();
 
     @JsonIgnore
