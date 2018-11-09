@@ -8,15 +8,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Relation("recipes")
+@Relation(collectionRelation = "recipes")
 public class Recipe extends BaseEntity {
 
     private String title;
     private String descrition;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private Set<Note> notes = new HashSet<>();
 
