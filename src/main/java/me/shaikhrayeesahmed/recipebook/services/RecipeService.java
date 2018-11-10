@@ -11,4 +11,6 @@ public interface RecipeService {
 
     Resources<Resource<Category>> findAllCategories(Long id);
 
+    Resource<Recipe> find(Long id);
+
 }

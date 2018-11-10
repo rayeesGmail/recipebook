@@ -56,9 +56,6 @@ public class RecipeServiceImpl implements RecipeService {
                 linkTo(methodOn(RecipeController.class).all()).withRel("recipes"));
     }
 
-
-
-
     @Override
     public Resources<Resource<Category>> findAllCategories(Long id) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
@@ -72,4 +69,21 @@ public class RecipeServiceImpl implements RecipeService {
             return findAllByRecipes(recipes);
         }
     }
+
+
+    @Override
+    public Resource<Recipe> find(Long id) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+
+        if(!optionalRecipe.isPresent()){
+            throw new RuntimeException("entity not found");
+        }
+        else {
+            Resource<Recipe> recipeResource = recipeResourceAssembler.toResource(optionalRecipe.get());
+
+            return recipeResource;
+        }
+
+    }
+
 }

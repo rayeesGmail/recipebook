@@ -29,6 +29,10 @@ public class RecipeController {
         return recipeService.findAllCategories(id);
     }
 
+    @GetMapping("/recipes/{id}")
+    public Resource<Recipe> one(@PathVariable Long id){
+        return recipeService.find(id);
+    }
 
 
 }
