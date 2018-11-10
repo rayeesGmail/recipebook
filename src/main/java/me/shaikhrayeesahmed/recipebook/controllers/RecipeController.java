@@ -2,6 +2,7 @@ package me.shaikhrayeesahmed.recipebook.controllers;
 
 import me.shaikhrayeesahmed.recipebook.domains.Category;
 import me.shaikhrayeesahmed.recipebook.domains.Recipe;
+import me.shaikhrayeesahmed.recipebook.dtos.RecipeDTO;
 import me.shaikhrayeesahmed.recipebook.services.RecipeService;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -30,7 +31,7 @@ public class RecipeController {
     }
 
     @GetMapping("/recipes/{id}")
-    public Resource<Recipe> one(@PathVariable Long id){
+    public Resource<RecipeDTO> one(@PathVariable Long id){
         return recipeService.find(id);
     }
 

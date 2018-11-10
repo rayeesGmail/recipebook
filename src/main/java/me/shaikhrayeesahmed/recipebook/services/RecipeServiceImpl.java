@@ -6,6 +6,7 @@ import me.shaikhrayeesahmed.recipebook.controllers.CategoryController;
 import me.shaikhrayeesahmed.recipebook.controllers.RecipeController;
 import me.shaikhrayeesahmed.recipebook.domains.Category;
 import me.shaikhrayeesahmed.recipebook.domains.Recipe;
+import me.shaikhrayeesahmed.recipebook.dtos.RecipeDTO;
 import me.shaikhrayeesahmed.recipebook.repositories.CategoryRepository;
 import me.shaikhrayeesahmed.recipebook.repositories.RecipeRepository;
 import org.springframework.hateoas.Resource;
@@ -72,16 +73,22 @@ public class RecipeServiceImpl implements RecipeService {
 
 
     @Override
-    public Resource<Recipe> find(Long id) {
+    public Resource<RecipeDTO> find(Long id) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
 
         if(!optionalRecipe.isPresent()){
             throw new RuntimeException("entity not found");
         }
         else {
-            Resource<Recipe> recipeResource = recipeResourceAssembler.toResource(optionalRecipe.get());
 
-            return recipeResource;
+            Recipe recipe = optionalRecipe.get();
+
+            RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getTitle(), recipe.getDescrition(),
+                    recipe.getIngredients(), recipe.getNotes());
+
+
+            return recipeResourceAssembler.toResource(recipeDTO);
+
         }
 
     }
