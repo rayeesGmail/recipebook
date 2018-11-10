@@ -14,7 +14,8 @@ public class RecipeResourceAssembler implements ResourceAssembler<Recipe, Resour
 
     @Override
     public Resource<Recipe> toResource(Recipe recipe) {
-        return new Resource<>(recipe, linkTo(methodOn(RecipeController.class).all()).withRel("recipes"));
+        return new Resource<>(recipe, linkTo(methodOn(RecipeController.class).categories(recipe.getId())).withRel("categories"),
+                linkTo(methodOn(RecipeController.class).all()).withRel("recipes"));
     }
 
 }
