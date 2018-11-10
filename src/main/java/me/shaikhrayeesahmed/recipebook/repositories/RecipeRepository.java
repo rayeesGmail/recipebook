@@ -1,7 +1,14 @@
 package me.shaikhrayeesahmed.recipebook.repositories;
 
+import me.shaikhrayeesahmed.recipebook.domains.Category;
 import me.shaikhrayeesahmed.recipebook.domains.Recipe;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RecipeRepository extends PagingAndSortingRepository<Recipe, Long> {
+import java.util.List;
+import java.util.Set;
+
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+
+    List<Recipe> findByCategories(Set<Category> categories);
+
 }

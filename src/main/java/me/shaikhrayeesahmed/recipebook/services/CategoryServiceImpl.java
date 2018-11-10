@@ -3,11 +3,14 @@ package me.shaikhrayeesahmed.recipebook.services;
 import me.shaikhrayeesahmed.recipebook.assemblers.CategoryResourceAssembler;
 import me.shaikhrayeesahmed.recipebook.controllers.CategoryController;
 import me.shaikhrayeesahmed.recipebook.domains.Category;
+import me.shaikhrayeesahmed.recipebook.domains.Recipe;
 import me.shaikhrayeesahmed.recipebook.repositories.CategoryRepository;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -20,10 +23,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryResourceAssembler categoryResourceAssembler;
+    private final RecipeService recipeService;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryResourceAssembler categoryResourceAssembler) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryResourceAssembler categoryResourceAssembler,
+                               RecipeService recipeService) {
         this.categoryRepository = categoryRepository;
         this.categoryResourceAssembler = categoryResourceAssembler;
+        this.recipeService = recipeService;
     }
 
     @Override
@@ -37,5 +43,23 @@ public class CategoryServiceImpl implements CategoryService {
 
     }
 
+    @Override
+    public Resources<Resource<Recipe>> findAllRecipes(Long id) {
+         Optional<Category> optionalCategory = categoryRepository.findById(id);
+
+         if(!optionalCategory.isPresent()){
+             throw new RuntimeException("Entity Not found");
+         }
+         else {
+
+             Set<Category> categories = new HashSet<>();
+             categories.add(optionalCategory.get());
+
+             return recipeService.findAllByCategories(categories);
+
+         }
+
+
+    }
 
 }

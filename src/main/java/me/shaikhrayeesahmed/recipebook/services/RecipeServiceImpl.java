@@ -2,6 +2,7 @@ package me.shaikhrayeesahmed.recipebook.services;
 
 import me.shaikhrayeesahmed.recipebook.assemblers.RecipeResourceAssembler;
 import me.shaikhrayeesahmed.recipebook.controllers.RecipeController;
+import me.shaikhrayeesahmed.recipebook.domains.Category;
 import me.shaikhrayeesahmed.recipebook.domains.Recipe;
 import me.shaikhrayeesahmed.recipebook.repositories.RecipeRepository;
 import org.springframework.hateoas.Resource;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -28,11 +28,21 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Resources<Resource<Recipe>> findAll() {
-        Set<Resource<Recipe>> resources = StreamSupport.stream(recipeRepository.findAll().spliterator(), false)
+        Set<Resource<Recipe>> resources = recipeRepository.findAll().stream()
                 .map(recipeResourceAssembler::toResource)
                 .collect(Collectors.toSet());
 
         return new Resources<>(resources, linkTo(methodOn(RecipeController.class).all()).withSelfRel());
     }
 
+    @Override
+    public Resources<Resource<Recipe>> findAllByCategories(Set<Category> categories) {
+
+        Set<Resource<Recipe>> resources = recipeRepository.findByCategories(categories).stream()
+                .map(recipeResourceAssembler::toResource)
+                .collect(Collectors.toSet());
+
+        return new Resources<>(resources);
+
+    }
 }
