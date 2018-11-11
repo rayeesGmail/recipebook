@@ -78,4 +78,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
+    @Override
+    public Resource<Category> save(Category category) {
+        return categoryResourceAssembler.toResource(categoryRepository.save(category));
+    }
+
 }

@@ -11,4 +11,6 @@ public interface CategoryService {
 
     Resources<Resource<Recipe>> findAllRecipes(Long id);
 
+    Resource<Category> save(Category category);
+
 }
