@@ -23,6 +23,11 @@ public class CategoryController {
         return categoryService.findAll();
     }
 
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<Resource<Category>> one(@PathVariable Long id){
+        return new ResponseEntity<>(categoryService.find(id), HttpStatus.OK);
+    }
+
     @GetMapping("/categories/{id}/recipes")
     public Resources<Resource<Recipe>> recipes(@PathVariable Long id){
 

@@ -15,6 +15,7 @@ public class CategoryResourceAssembler implements ResourceAssembler<Category, Re
     @Override
     public Resource<Category> toResource(Category category) {
         return new Resource<>(category,
+                linkTo(methodOn(CategoryController.class).one(category.getId())).withSelfRel(),
                 linkTo(methodOn(CategoryController.class).recipes(category.getId())).withRel("recipes"),
                 linkTo(methodOn(CategoryController.class).all()).withRel("categories"));
     }

@@ -50,6 +50,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
+    @Override
+    public Resource<Category> find(Long id) {
+
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+
+        if(!optionalCategory.isPresent()){
+            throw new RuntimeException("no entity found");
+        }
+
+        return categoryResourceAssembler.toResource(optionalCategory.get());
+    }
+
     private Resources<Resource<Recipe>> findAllByCategories(Set<Category> categories) {
 
         Set<Resource<Recipe>> resources = recipeRepository.findByCategories(categories).stream()
@@ -94,7 +106,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public void delete(Long id) {
 
-        Category category = categoryRepository.findById(id).get();
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+
+        if(!optionalCategory.isPresent()){
+            throw new RuntimeException("no entity found");
+        }
+
+        Category category = optionalCategory.get();
 
         Set<Recipe> recipes = category.getRecipes();
 
