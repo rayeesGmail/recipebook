@@ -13,4 +13,8 @@ public interface CategoryService {
 
     Resource<Category> save(Category category);
 
+    Resource<Category> update(Long id, Category category);
+
+    void delete(Long id);
+
 }

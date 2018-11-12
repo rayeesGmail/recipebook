@@ -11,6 +11,7 @@ import me.shaikhrayeesahmed.recipebook.repositories.RecipeRepository;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -81,6 +82,28 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Resource<Category> save(Category category) {
         return categoryResourceAssembler.toResource(categoryRepository.save(category));
+    }
+
+    @Override
+    public Resource<Category> update(Long id, Category category) {
+        category.setId(id);
+        return categoryResourceAssembler.toResource(categoryRepository.save(category));
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+
+        Category category = categoryRepository.findById(id).get();
+
+        Set<Recipe> recipes = category.getRecipes();
+
+        for(Recipe recipe : recipes){
+            recipe.getCategories().remove(category);
+        }
+
+        categoryRepository.delete(category);
+
     }
 
 }
