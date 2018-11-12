@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 public class UnitOfMeasure extends BaseEntity {
 
     private String name;
-    private String descrition;
+    private String description;
 
     public UnitOfMeasure() {
     }
@@ -22,12 +22,12 @@ public class UnitOfMeasure extends BaseEntity {
         this.name = name;
     }
 
-    public String getDescrition() {
-        return descrition;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrition(String descrition) {
-        this.descrition = descrition;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

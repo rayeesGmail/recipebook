@@ -8,5 +8,7 @@ public interface UnitOfMeasureService {
 
     Resources<Resource<UnitOfMeasure>> findAll();
 
+    Resource<UnitOfMeasure> save(UnitOfMeasure unitOfMeasure);
+
 
 }

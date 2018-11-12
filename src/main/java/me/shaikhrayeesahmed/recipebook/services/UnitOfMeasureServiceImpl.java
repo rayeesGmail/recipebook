@@ -34,4 +34,9 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
         return new Resources<>(resources, linkTo(methodOn(UnitOfMeasureController.class).all()).withSelfRel());
     }
 
+    @Override
+    public Resource<UnitOfMeasure> save(UnitOfMeasure unitOfMeasure) {
+        return unitOfMeasureResourceAssembler.toResource(unitOfMeasureRepository.save(unitOfMeasure));
+    }
+
 }

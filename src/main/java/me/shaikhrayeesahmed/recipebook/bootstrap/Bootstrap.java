@@ -42,11 +42,11 @@ public class Bootstrap implements CommandLineRunner {
 
         UnitOfMeasure litter = new UnitOfMeasure();
         litter.setName("Litter");
-        litter.setDescrition("Litter is a unit of measure used to measure liquids");
+        litter.setDescription("Litter is a unit of measure used to measure liquids");
 
         UnitOfMeasure kilo = new UnitOfMeasure();
         kilo.setName("Kilo Gram");
-        kilo.setDescrition("Kilo Gram is unit of measure used to measure solids");
+        kilo.setDescription("Kilo Gram is unit of measure used to measure solids");
 
         List<UnitOfMeasure> unitOfMeasures = new ArrayList<>();
         unitOfMeasures.add(litter);
