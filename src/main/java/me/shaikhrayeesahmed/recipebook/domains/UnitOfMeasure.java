@@ -1,8 +1,11 @@
 package me.shaikhrayeesahmed.recipebook.domains;
 
+import org.springframework.hateoas.core.Relation;
+
 import javax.persistence.Entity;
 
 @Entity
+@Relation(collectionRelation = "units")
 public class UnitOfMeasure extends BaseEntity {
 
     private String name;
