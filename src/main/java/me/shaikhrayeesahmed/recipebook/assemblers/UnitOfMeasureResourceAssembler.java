@@ -14,6 +14,8 @@ public class UnitOfMeasureResourceAssembler implements ResourceAssembler<UnitOfM
 
     @Override
     public Resource<UnitOfMeasure> toResource(UnitOfMeasure unitOfMeasure) {
-        return new Resource<>(unitOfMeasure, linkTo(methodOn(UnitOfMeasureController.class).all()).withRel("units"));
+        return new Resource<>(unitOfMeasure,
+                linkTo(methodOn(UnitOfMeasureController.class).one(unitOfMeasure.getId())).withSelfRel(),
+                linkTo(methodOn(UnitOfMeasureController.class).all()).withRel("units"));
     }
 }

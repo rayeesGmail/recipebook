@@ -8,6 +8,8 @@ public interface UnitOfMeasureService {
 
     Resources<Resource<UnitOfMeasure>> findAll();
 
+    Resource<UnitOfMeasure> find(Long id);
+
     Resource<UnitOfMeasure> save(UnitOfMeasure unitOfMeasure);
 
 

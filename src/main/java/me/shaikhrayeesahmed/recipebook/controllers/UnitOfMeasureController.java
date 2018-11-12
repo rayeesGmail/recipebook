@@ -25,6 +25,11 @@ public class UnitOfMeasureController {
         return unitOfMeasureService.findAll();
     }
 
+    @GetMapping("/units/{id}")
+    public ResponseEntity<Resource<UnitOfMeasure>> one(@PathVariable Long id){
+        return new ResponseEntity<>(unitOfMeasureService.find(id), HttpStatus.OK);
+    }
+
     @PostMapping("/units")
     public ResponseEntity<Resource<UnitOfMeasure>> create(@RequestBody UnitOfMeasure unitOfMeasure) throws URISyntaxException {
         Resource<UnitOfMeasure> resource = unitOfMeasureService.save(unitOfMeasure);

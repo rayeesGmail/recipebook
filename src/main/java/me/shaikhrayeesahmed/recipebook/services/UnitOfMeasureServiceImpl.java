@@ -8,6 +8,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,6 +33,20 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
                 .collect(Collectors.toSet());
 
         return new Resources<>(resources, linkTo(methodOn(UnitOfMeasureController.class).all()).withSelfRel());
+    }
+
+
+    @Override
+    public Resource<UnitOfMeasure> find(Long id) {
+
+        Optional<UnitOfMeasure> optionalUnitOfMeasure = unitOfMeasureRepository.findById(id);
+
+        if(!optionalUnitOfMeasure.isPresent()){
+            throw new RuntimeException("entity not found");
+        }
+
+        return unitOfMeasureResourceAssembler.toResource(optionalUnitOfMeasure.get());
+
     }
 
     @Override
