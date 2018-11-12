@@ -12,5 +12,8 @@ public interface UnitOfMeasureService {
 
     Resource<UnitOfMeasure> save(UnitOfMeasure unitOfMeasure);
 
+    Resource<UnitOfMeasure> update(Long id, UnitOfMeasure unitOfMeasure);
+
+    void delete(Long id);
 
 }

@@ -54,4 +54,18 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
         return unitOfMeasureResourceAssembler.toResource(unitOfMeasureRepository.save(unitOfMeasure));
     }
 
+
+    @Override
+    public Resource<UnitOfMeasure> update(Long id, UnitOfMeasure unitOfMeasure) {
+
+        unitOfMeasure.setId(id);
+        return unitOfMeasureResourceAssembler.toResource(unitOfMeasureRepository.save(unitOfMeasure));
+
+    }
+
+    @Override
+    public void delete(Long id) {
+        unitOfMeasureRepository.deleteById(id);
+    }
+
 }

@@ -18,4 +18,5 @@ public class UnitOfMeasureResourceAssembler implements ResourceAssembler<UnitOfM
                 linkTo(methodOn(UnitOfMeasureController.class).one(unitOfMeasure.getId())).withSelfRel(),
                 linkTo(methodOn(UnitOfMeasureController.class).all()).withRel("units"));
     }
+
 }

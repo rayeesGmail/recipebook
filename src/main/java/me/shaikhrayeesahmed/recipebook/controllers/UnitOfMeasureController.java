@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URISyntaxException;
-
 @RestController
 public class UnitOfMeasureController {
 
@@ -31,12 +29,23 @@ public class UnitOfMeasureController {
     }
 
     @PostMapping("/units")
-    public ResponseEntity<Resource<UnitOfMeasure>> create(@RequestBody UnitOfMeasure unitOfMeasure) throws URISyntaxException {
+    public ResponseEntity<Resource<UnitOfMeasure>> create(@RequestBody UnitOfMeasure unitOfMeasure) {
         Resource<UnitOfMeasure> resource = unitOfMeasureService.save(unitOfMeasure);
         return new ResponseEntity<>(resource, HttpStatus.CREATED);
     }
 
 
+    @PutMapping("/units/{id}")
+    public ResponseEntity<Resource<UnitOfMeasure>> update(@PathVariable Long id, @RequestBody UnitOfMeasure unitOfMeasure) {
+        return new ResponseEntity<>(unitOfMeasureService.update(id, unitOfMeasure), HttpStatus.CREATED);
+    }
+
+
+//    @DeleteMapping("/units/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void delete(@PathVariable Long id){
+//        unitOfMeasureService.delete(id);
+//    }
 
 
 
