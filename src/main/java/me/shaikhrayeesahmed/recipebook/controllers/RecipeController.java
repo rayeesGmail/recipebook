@@ -2,7 +2,6 @@ package me.shaikhrayeesahmed.recipebook.controllers;
 
 import me.shaikhrayeesahmed.recipebook.domains.Category;
 import me.shaikhrayeesahmed.recipebook.domains.Recipe;
-import me.shaikhrayeesahmed.recipebook.dtos.RecipeDTO;
 import me.shaikhrayeesahmed.recipebook.services.RecipeService;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -31,7 +30,7 @@ public class RecipeController {
     }
 
     @GetMapping("/recipes/{id}")
-    public Resource<RecipeDTO> one(@PathVariable Long id){
+    public Resource<Recipe> one(@PathVariable Long id){
         return recipeService.find(id);
     }
 
@@ -39,5 +38,19 @@ public class RecipeController {
     public ResponseEntity<Resource<Recipe>> create(@RequestBody Recipe recipe){
         return new ResponseEntity<>(recipeService.create(recipe), HttpStatus.CREATED);
     }
+
+    @PutMapping("/recipes/{id}")
+    public ResponseEntity<Resource<Recipe>> update(@PathVariable Long id, @RequestBody Recipe recipe){
+        return new ResponseEntity<>(recipeService.update(id, recipe), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/recipes/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+        recipeService.delete(id);
+    }
+
+
+
 
 }

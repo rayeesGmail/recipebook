@@ -3,10 +3,10 @@ package me.shaikhrayeesahmed.recipebook.services;
 import me.shaikhrayeesahmed.recipebook.assemblers.CategoryResourceAssembler;
 import me.shaikhrayeesahmed.recipebook.assemblers.RecipeResourceAssembler;
 import me.shaikhrayeesahmed.recipebook.controllers.CategoryController;
+import me.shaikhrayeesahmed.recipebook.controllers.IngredientController;
 import me.shaikhrayeesahmed.recipebook.controllers.RecipeController;
 import me.shaikhrayeesahmed.recipebook.domains.Category;
 import me.shaikhrayeesahmed.recipebook.domains.Recipe;
-import me.shaikhrayeesahmed.recipebook.dtos.RecipeDTO;
 import me.shaikhrayeesahmed.recipebook.repositories.CategoryRepository;
 import me.shaikhrayeesahmed.recipebook.repositories.RecipeRepository;
 import org.springframework.hateoas.Resource;
@@ -74,24 +74,18 @@ public class RecipeServiceImpl implements RecipeService {
 
 
     @Override
-    public Resource<RecipeDTO> find(Long id) {
+    public Resource<Recipe> find(Long id) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
 
         if(!optionalRecipe.isPresent()){
             throw new RuntimeException("entity not found");
         }
-        else {
 
-            Recipe recipe = optionalRecipe.get();
+        Resource<Recipe> resource = recipeResourceAssembler.toResource(optionalRecipe.get());
 
-            RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getTitle(), recipe.getDescription(),
-                    recipe.getIngredients(), recipe.getNotes());
+        resource.add(linkTo(methodOn(IngredientController.class).all(optionalRecipe.get().getId())).withRel("ingredients"));
 
-
-            return recipeResourceAssembler.toResource(recipeDTO);
-
-        }
-
+        return resource;
     }
 
 
@@ -99,6 +93,19 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Resource<Recipe> create(Recipe recipe) {
         return recipeResourceAssembler.toResource(recipeRepository.save(recipe));
+    }
+
+    @Transactional
+    @Override
+    public Resource<Recipe> update(Long id, Recipe recipe) {
+        recipe.setId(id);
+        return recipeResourceAssembler.toResource(recipeRepository.save(recipe));
+    }
+
+    @Transactional
+    @Override
+    public void delete(Long id) {
+        recipeRepository.deleteById(id);
     }
 
 }
