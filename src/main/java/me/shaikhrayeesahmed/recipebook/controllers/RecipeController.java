@@ -6,9 +6,9 @@ import me.shaikhrayeesahmed.recipebook.dtos.RecipeDTO;
 import me.shaikhrayeesahmed.recipebook.services.RecipeService;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RecipeController {
@@ -35,5 +35,9 @@ public class RecipeController {
         return recipeService.find(id);
     }
 
+    @PostMapping("/recipes")
+    public ResponseEntity<Resource<Recipe>> create(@RequestBody Recipe recipe){
+        return new ResponseEntity<>(recipeService.create(recipe), HttpStatus.CREATED);
+    }
 
 }

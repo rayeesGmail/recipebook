@@ -1,6 +1,6 @@
 package me.shaikhrayeesahmed.recipebook.domains;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +10,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class BaseEntity {
 
-    @JsonIgnore
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty("uuid")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

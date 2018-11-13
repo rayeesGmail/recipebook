@@ -12,6 +12,7 @@ import me.shaikhrayeesahmed.recipebook.repositories.RecipeRepository;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -83,7 +84,7 @@ public class RecipeServiceImpl implements RecipeService {
 
             Recipe recipe = optionalRecipe.get();
 
-            RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getTitle(), recipe.getDescrition(),
+            RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getTitle(), recipe.getDescription(),
                     recipe.getIngredients(), recipe.getNotes());
 
 
@@ -91,6 +92,13 @@ public class RecipeServiceImpl implements RecipeService {
 
         }
 
+    }
+
+
+    @Transactional
+    @Override
+    public Resource<Recipe> create(Recipe recipe) {
+        return recipeResourceAssembler.toResource(recipeRepository.save(recipe));
     }
 
 }

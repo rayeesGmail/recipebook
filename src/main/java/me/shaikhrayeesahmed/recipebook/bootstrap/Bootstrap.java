@@ -83,7 +83,7 @@ public class Bootstrap implements CommandLineRunner {
 
         Recipe biryani = new Recipe();
         biryani.setTitle("Hyderabadi Biryani");
-        biryani.setDescrition("Special Dish brought you from the city of nizam Hyderabad.");
+        biryani.setDescription("Special Dish brought you from the city of nizam Hyderabad.");
 
         biryani.getIngredients().add(water);
         biryani.getIngredients().add(oil);

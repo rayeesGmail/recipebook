@@ -14,4 +14,6 @@ public interface RecipeService {
 
     Resource<RecipeDTO> find(Long id);
 
+    Resource<Recipe> create(Recipe recipe);
+
 }

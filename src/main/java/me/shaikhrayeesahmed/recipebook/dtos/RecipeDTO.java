@@ -1,6 +1,6 @@
 package me.shaikhrayeesahmed.recipebook.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import me.shaikhrayeesahmed.recipebook.domains.Ingredient;
 import me.shaikhrayeesahmed.recipebook.domains.Note;
 
@@ -9,16 +9,18 @@ import java.util.Set;
 
 public class RecipeDTO {
 
-    @JsonIgnore
+    @JsonProperty("uuid")
     private Long id;
 
     private String title;
     private String description;
 
     private Set<Ingredient> ingredients = new HashSet<>();
-
     private Set<Note> notes = new HashSet<>();
+//    private Set<Category> categories = new HashSet<>();
 
+    public RecipeDTO() {
+    }
 
     public RecipeDTO(Long id, String title, String description, Set<Ingredient> ingredients, Set<Note> notes) {
         this.id = id;
@@ -43,7 +45,7 @@ public class RecipeDTO {
     public Set<Ingredient> getIngredients() {
         return ingredients;
     }
-
+//
     public Set<Note> getNotes() {
         return notes;
     }
