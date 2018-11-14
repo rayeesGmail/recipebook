@@ -10,6 +10,8 @@ public interface IngredientService {
 
     Resource<Ingredient> find(Long recipeid, Long ingredientid);
 
+    Resource<Ingredient> save(Long recipeid, Ingredient ingredient);
+
     Resource<Ingredient> update(Long recipeid, Long ingredientid, Ingredient ingredient);
 
     void delete(Long recipeid, Long ingredientid);

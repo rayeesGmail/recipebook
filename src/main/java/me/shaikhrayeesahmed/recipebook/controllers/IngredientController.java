@@ -29,6 +29,12 @@ public class IngredientController {
     }
 
 
+    @PostMapping("/recipes/{recipeid}/ingredients")
+    public ResponseEntity<Resource<Ingredient>> create(@PathVariable Long recipeid, @RequestBody Ingredient ingredient){
+        return new ResponseEntity<>(ingredientService.save(recipeid, ingredient), HttpStatus.CREATED);
+    }
+
+
     @PutMapping("recipes/{recipeid}/ingredients/{ingredientid}")
     public ResponseEntity<Resource<Ingredient>> update(@PathVariable Long recipeid, @PathVariable Long ingredientid,
                                                        @RequestBody Ingredient ingredient){

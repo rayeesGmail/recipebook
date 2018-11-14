@@ -4,6 +4,7 @@ import me.shaikhrayeesahmed.recipebook.assemblers.CategoryResourceAssembler;
 import me.shaikhrayeesahmed.recipebook.assemblers.RecipeResourceAssembler;
 import me.shaikhrayeesahmed.recipebook.controllers.CategoryController;
 import me.shaikhrayeesahmed.recipebook.controllers.IngredientController;
+import me.shaikhrayeesahmed.recipebook.controllers.NoteController;
 import me.shaikhrayeesahmed.recipebook.controllers.RecipeController;
 import me.shaikhrayeesahmed.recipebook.domains.Category;
 import me.shaikhrayeesahmed.recipebook.domains.Recipe;
@@ -84,6 +85,7 @@ public class RecipeServiceImpl implements RecipeService {
         Resource<Recipe> resource = recipeResourceAssembler.toResource(optionalRecipe.get());
 
         resource.add(linkTo(methodOn(IngredientController.class).all(optionalRecipe.get().getId())).withRel("ingredients"));
+        resource.add(linkTo(methodOn(NoteController.class).all(optionalRecipe.get().getId())).withRel("notes"));
 
         return resource;
     }

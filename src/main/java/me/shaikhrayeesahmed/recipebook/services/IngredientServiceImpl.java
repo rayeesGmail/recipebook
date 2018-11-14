@@ -61,6 +61,20 @@ public class IngredientServiceImpl implements IngredientService {
         return ingredientResourceAssembler.toResource(optionalIngredient.get());
     }
 
+
+    @Override
+    public Resource<Ingredient> save(Long recipeid, Ingredient ingredient) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeid);
+        if(!optionalRecipe.isPresent()){
+            throw new RuntimeException("no entity found");
+        }
+
+        ingredient.setRecipe(optionalRecipe.get());
+
+        return ingredientResourceAssembler.toResource(ingrdientRepository.save(ingredient));
+
+    }
+
     @Override
     public Resource<Ingredient> update(Long recipeid, Long ingredientid, Ingredient ingredient) {
         ingredient.setId(ingredientid);
